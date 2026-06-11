@@ -1,0 +1,11 @@
+[project]
+name = "coursera-anthropic-api-course"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.109.1",
+    "fastapi[standard]>=0.136.3",
+    "load-dotenv>=0.1.0",
+]
