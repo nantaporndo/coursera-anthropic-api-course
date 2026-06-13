@@ -19,22 +19,33 @@ def add_assistant_message(messages, content):
         "content": content,
     })
 
-def chat(messages):
-    response = client.messages.create(
-        max_tokens=1024,
-        messages=messages,
-        model="claude-sonnet-4-5",
-    )
+def chat(messages,system=None):
+
+    parameters = {
+        "max_tokens": 1024,
+        "messages": messages,
+        "model": "claude-sonnet-4-5",
+    }
+
+    if system:
+        parameters["system"] = system
+
+    response = client.messages.create(**parameters) 
+
     return response.content[0].text
 
 messages = []
 
-add_user_message(messages, "Define the term 'artificial intelligence'. for 40 words or less.")
+    system = """You are a patient math tutor.
+    Do not directly answer the question. Instead, ask the student questions to guide them to the answer.
+    If the student is stuck, give them a hint."""
+
+add_user_message(messages, "What is 2 + 2?")
 
 answer = chat(messages)
 print(answer)
 
-add_assistant_message(messages, "Write another message.")
+# add_assistant_message(messages, "Write another message.")
 
-answer = chat(messages)
-print(answer)
+# answer = chat(messages, system=system)
+# print(answer)
